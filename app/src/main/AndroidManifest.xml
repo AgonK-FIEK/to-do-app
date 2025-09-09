@@ -11,13 +11,13 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/Theme.TaskMaster"
+        android:theme="@style/Theme.MaterialComponents.DayNight"
         android:supportsRtl="true">
         
         <activity
             android:name=".presentation.splash.SplashActivity"
             android:exported="true"
-            android:theme="@style/Theme.TaskMaster.NoActionBar">
+            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -25,7 +25,15 @@
         </activity>
         
         <activity 
-            android:name=".presentation.auth.AuthActivity"
+            android:name=".presentation.auth.login.LoginActivity"
+            android:windowSoftInputMode="adjustResize" />
+            
+        <activity 
+            android:name=".presentation.auth.register.RegisterActivity"
+            android:windowSoftInputMode="adjustResize" />
+            
+        <activity 
+            android:name=".presentation.auth.forgot.ForgotPasswordActivity"
             android:windowSoftInputMode="adjustResize" />
             
         <activity 

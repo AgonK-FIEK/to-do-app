@@ -8,12 +8,12 @@ plugins {
 
 android {
     namespace = "com.taskmaster"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.taskmaster"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -41,6 +41,14 @@ android {
     buildFeatures {
         viewBinding = true
         dataBinding = true
+    }
+    
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            excludes += "/META-INF/NOTICE.md"
+            excludes += "/META-INF/LICENSE.md"
+        }
     }
 }
 
