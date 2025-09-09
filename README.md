@@ -12,22 +12,22 @@ Android task management application.
 
 ### Core Functionality
 - Create, Read, Update, Delete Tasks
-- Task Categories and Priorities
-- Due Date Management
-- Search and Filter Tasks
+- Task Completion Tracking
+- Real-time Task Updates
 
 ### Technical Features
 - Secure Password Hashing (BCrypt)
-- Input Validation
-- Error Handling
-- Push Notifications
-- Animated Transitions
-- Multi-device Support
+- Input Validation (Email & Password Complexity)
+- Error Handling with User Feedback
+- Welcome Notifications on Login/Register
+- Splash Screen Animations
+- Responsive Design for Multiple Screen Sizes
 
 ## Technical Stack
 
 - **Language:** Kotlin
 - **Min SDK:** API 24 (Android 7.0)
+- **Target SDK:** API 35 (Android 15)
 - **Database:** Room
 - **Architecture:** MVVM Pattern
 - **Dependency Injection:** Hilt

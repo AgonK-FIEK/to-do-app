@@ -11,14 +11,20 @@ import com.taskmaster.presentation.auth.register.RegisterActivity
 import com.taskmaster.presentation.auth.forgot.ForgotPasswordActivity
 import com.taskmaster.presentation.main.MainActivity
 import com.taskmaster.utils.ValidationUtils
+import com.taskmaster.utils.NotificationHelper
+import com.taskmaster.utils.SessionManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
     
     private lateinit var binding: ActivityLoginBinding
     private val viewModel: LoginViewModel by viewModels()
+    
+    @Inject
+    lateinit var sessionManager: SessionManager
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,6 +83,7 @@ class LoginActivity : AppCompatActivity() {
                         binding.btnLogin.isEnabled = false
                     }
                     is LoginState.Success -> {
+                        NotificationHelper.showWelcomeNotification(this@LoginActivity, "User")
                         startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                         finish()
                     }

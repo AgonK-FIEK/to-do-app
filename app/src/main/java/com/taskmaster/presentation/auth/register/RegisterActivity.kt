@@ -9,6 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import com.taskmaster.databinding.ActivityRegisterBinding
 import com.taskmaster.presentation.main.MainActivity
 import com.taskmaster.utils.ValidationUtils
+import com.taskmaster.utils.NotificationHelper
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -90,6 +91,8 @@ class RegisterActivity : AppCompatActivity() {
                         binding.btnRegister.isEnabled = false
                     }
                     is RegisterState.Success -> {
+                        val fullName = binding.etFullName.text.toString()
+                        NotificationHelper.showWelcomeNotification(this@RegisterActivity, fullName)
                         startActivity(Intent(this@RegisterActivity, MainActivity::class.java))
                         finish()
                     }
