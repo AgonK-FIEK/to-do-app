@@ -3,8 +3,6 @@
     
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
-    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
     
     <application
         android:name=".TaskMasterApp"
@@ -32,15 +30,21 @@
             android:name=".presentation.auth.register.RegisterActivity"
             android:windowSoftInputMode="adjustResize" />
             
-        <activity 
+        <activity
             android:name=".presentation.auth.forgot.ForgotPasswordActivity"
             android:windowSoftInputMode="adjustResize" />
-            
-        <activity 
+
+        <activity
+            android:name=".presentation.auth.reset.ResetPasswordActivity"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".presentation.auth.twofa.TwoFAActivity"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
             android:name=".presentation.main.MainActivity"
             android:windowSoftInputMode="adjustResize" />
-            
-        <receiver android:name=".utils.NotificationReceiver" />
-        
+
     </application>
 </manifest>

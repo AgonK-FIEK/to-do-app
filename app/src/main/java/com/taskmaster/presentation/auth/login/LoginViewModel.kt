@@ -3,6 +3,8 @@ package com.taskmaster.presentation.auth.login
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.taskmaster.data.database.dao.UserDao
+import com.taskmaster.data.database.entity.UserEntity
+import com.taskmaster.utils.EmailUtils
 import com.taskmaster.utils.PasswordUtils
 import com.taskmaster.utils.SessionManager
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,14 +25,20 @@ class LoginViewModel @Inject constructor(
     fun login(email: String, password: String) {
         viewModelScope.launch {
             _loginState.value = LoginState.Loading
-            
+
             try {
                 val user = userDao.getUserByEmail(email)
-                
+
                 if (user != null && PasswordUtils.checkPassword(password, user.passwordHash)) {
-                    sessionManager.saveUserId(user.id)
-                    sessionManager.saveUserEmail(user.email)
-                    _loginState.value = LoginState.Success
+                    if (user.twoFactorEnabled) {
+                        val code = generate2FACode()
+                        EmailUtils.send2FACode(user.email, code)
+                        _loginState.value = LoginState.TwoFARequired(user, code)
+                    } else {
+                        sessionManager.saveUserId(user.id)
+                        sessionManager.saveUserEmail(user.email)
+                        _loginState.value = LoginState.Success
+                    }
                 } else {
                     _loginState.value = LoginState.Error("Invalid email or password")
                 }
@@ -39,6 +47,10 @@ class LoginViewModel @Inject constructor(
             }
         }
     }
+
+    private fun generate2FACode(): String {
+        return (100000..999999).random().toString()
+    }
 }
 
 sealed class LoginState {
@@ -46,4 +58,5 @@ sealed class LoginState {
     object Loading : LoginState()
     object Success : LoginState()
     data class Error(val message: String) : LoginState()
+    data class TwoFARequired(val user: UserEntity, val code: String) : LoginState()
 }

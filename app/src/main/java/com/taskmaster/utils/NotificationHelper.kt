@@ -18,7 +18,7 @@ object NotificationHelper {
             val channel = NotificationChannel(
                 CHANNEL_ID,
                 CHANNEL_NAME,
-                NotificationManager.IMPORTANCE_DEFAULT
+                NotificationManager.IMPORTANCE_HIGH
             ).apply {
                 description = "Notifications for TaskMaster app"
             }
@@ -29,7 +29,8 @@ object NotificationHelper {
             .setSmallIcon(R.drawable.ic_notification)
             .setContentTitle("Welcome to TaskMaster!")
             .setContentText("Hello $userName! Start organizing your tasks today.")
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setDefaults(NotificationCompat.DEFAULT_ALL)
             .setAutoCancel(true)
             .build()
         

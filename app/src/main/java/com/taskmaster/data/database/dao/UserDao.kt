@@ -20,4 +20,7 @@ interface UserDao {
 
     @Query("SELECT * FROM users WHERE email = :email AND passwordHash = :passwordHash")
     suspend fun login(email: String, passwordHash: String): UserEntity?
+
+    @Query("UPDATE users SET twoFactorEnabled = :enabled WHERE id = :userId")
+    suspend fun updateTwoFactorEnabled(userId: Long, enabled: Boolean)
 }

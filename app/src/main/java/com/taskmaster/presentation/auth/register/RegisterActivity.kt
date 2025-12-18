@@ -1,10 +1,15 @@
 package com.taskmaster.presentation.auth.register
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.taskmaster.databinding.ActivityRegisterBinding
 import com.taskmaster.presentation.main.MainActivity
@@ -15,17 +20,41 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class RegisterActivity : AppCompatActivity() {
-    
+
     private lateinit var binding: ActivityRegisterBinding
     private val viewModel: RegisterViewModel by viewModels()
+
+    private val notificationPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted ->
+        if (!isGranted && Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            Toast.makeText(this, "Notification permission denied", Toast.LENGTH_SHORT).show()
+        }
+    }
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        
+
+        checkNotificationPermission()
         setupClickListeners()
         observeViewModel()
+    }
+
+    private fun checkNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            when {
+                ContextCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.POST_NOTIFICATIONS
+                ) == PackageManager.PERMISSION_GRANTED -> {
+                }
+                else -> {
+                    notificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+                }
+            }
+        }
     }
     
     private fun setupClickListeners() {
@@ -93,6 +122,7 @@ class RegisterActivity : AppCompatActivity() {
                     is RegisterState.Success -> {
                         val fullName = binding.etFullName.text.toString()
                         NotificationHelper.showWelcomeNotification(this@RegisterActivity, fullName)
+                        Toast.makeText(this@RegisterActivity, "Welcome! Check notifications.", Toast.LENGTH_LONG).show()
                         startActivity(Intent(this@RegisterActivity, MainActivity::class.java))
                         finish()
                     }

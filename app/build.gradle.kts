@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -10,6 +12,14 @@ android {
     namespace = "com.taskmaster"
     compileSdk = 35
 
+    // Load email credentials from local.properties (gitignored)
+    val localProps = Properties().apply {
+        val file = rootProject.file("local.properties")
+        if (file.exists()) {
+            file.inputStream().use { load(it) }
+        }
+    }
+
     defaultConfig {
         applicationId = "com.taskmaster"
         minSdk = 24
@@ -17,6 +27,12 @@ android {
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        // Expose credentials via BuildConfig
+        val emailUsername = (localProps.getProperty("EMAIL_USERNAME") ?: "")
+        val emailPassword = (localProps.getProperty("EMAIL_PASSWORD") ?: "")
+        buildConfigField("String", "EMAIL_USERNAME", "\"$emailUsername\"")
+        buildConfigField("String", "EMAIL_PASSWORD", "\"$emailPassword\"")
     }
 
     buildTypes {
@@ -41,6 +57,7 @@ android {
     buildFeatures {
         viewBinding = true
         dataBinding = true
+        buildConfig = true
     }
     
     packaging {
