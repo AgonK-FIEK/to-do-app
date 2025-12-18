@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="padding_small">12dp</dimen>
+    <dimen name="padding_medium">24dp</dimen>
+    <dimen name="padding_large">48dp</dimen>
+
+    <dimen name="text_size_small">16sp</dimen>
+    <dimen name="text_size_medium">20sp</dimen>
+    <dimen name="text_size_large">28sp</dimen>
+    <dimen name="text_size_title">36sp</dimen>
+
+    <dimen name="button_height">60dp</dimen>
+    <dimen name="input_height">60dp</dimen>
+
+    <dimen name="card_elevation">6dp</dimen>
+    <dimen name="card_corner_radius">12dp</dimen>
+    <dimen name="card_margin">24dp</dimen>
+
+    <dimen name="logo_size">180dp</dimen>
+    <dimen name="icon_size">32dp</dimen>
+</resources>

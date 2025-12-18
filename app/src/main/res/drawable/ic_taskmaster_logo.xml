@@ -1,0 +1,31 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Background Circle -->
+    <path
+        android:fillColor="#6200EE"
+        android:pathData="M54,4 A50,50 0 1,1 54,104 A50,50 0 1,1 54,4z"/>
+
+    <!-- Inner Circle -->
+    <path
+        android:fillColor="#3700B3"
+        android:pathData="M54,12 A42,42 0 1,1 54,96 A42,42 0 1,1 54,12z"/>
+
+    <!-- Letter T -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:strokeWidth="2"
+        android:strokeColor="#FFFFFF"
+        android:pathData="M30,35 L50,35 L50,70 L44,70 L44,41 L36,41 L36,70 L30,70 L30,35z"/>
+
+    <!-- Letter M -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:strokeWidth="2"
+        android:strokeColor="#FFFFFF"
+        android:pathData="M52,35 L58,35 L62,50 L66,35 L72,35 L72,70 L66,70 L66,45 L62,60 L58,45 L58,70 L52,70 L52,35z"/>
+
+</vector>
